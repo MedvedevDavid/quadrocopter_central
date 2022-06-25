@@ -4,6 +4,6 @@
 TEST(TC_I2C_Driver, testcases)
 {
 
-    EXPECT_TRUE(True);
+    EXPECT_TRUE(true);
 
 };

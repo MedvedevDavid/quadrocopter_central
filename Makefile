@@ -1,16 +1,17 @@
+
+#Not working
 CreateBuild:
 	mkdir build
 	cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles"
+	cmake ..
 
 BuildProject:
-	mkdir build
 	cd build
 	make all
 
 
 RunProject:
-	./build/src/Quadrocopter_Central
+	./build/src/Quadrocopter_Central_run
 
 RunTest:
-	./build/tests/Quadrocopter_Central
+	./build/tests/Quadrocopter_Central_tst
