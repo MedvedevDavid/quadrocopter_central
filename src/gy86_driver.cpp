@@ -9,7 +9,7 @@ namespace GY_86
     using namespace std::this_thread;     // sleep_for, sleep_until
     using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
     using std::chrono::system_clock;
-    
+
     void MPU6050::config(MPU_ConfigTypeDef &config)
     {
         I2C_Write8(this->i2c_id, PWR_MAGT_1_REG, 0x80);
@@ -23,12 +23,80 @@ namespace GY_86
         Buffer = 0;
         Buffer = (int) config.CONFIG_DLPF & 0x07;
         I2C_Write8(this->i2c_id, CONFIG_REG, Buffer);
+
+        //Select the Gyroscope Full Scale Range
+	    Buffer = 0;
+	    Buffer = ((int)config.Gyro_Full_Scale << 3) & 0x18;
+	    I2C_Write8(this->i2c_id, GYRO_CONFIG_REG, Buffer);
+
+        //Select the Accelerometer Full Scale Range 
+	    Buffer = 0; 
+	    Buffer = ((int)config.Accel_Full_Scale << 3) & 0x18;
+	    I2C_Write8(this->i2c_id, ACCEL_CONFIG_REG, Buffer);
+
+        MPU6050_Set_SMPRT_DIV(config.Sample_Rate_Devider);
+
+	if (config.INTA_ENABLED)
+	{
+		I2C_Write8(this->i2c_id, INT_ENABLE_REG, 0x1);
+	}
+	
+
+
+	//Accelerometer Scaling Factor, Set the Accelerometer and Gyroscope Scaling Factor
+	switch (config.Accel_Full_Scale)
+	{
+		case accel_FullScale_ENUM::AFS_SEL_2g:
+			accelScalingFactor = (2000.0f/32768.0f);
+			break;
+		
+		case accel_FullScale_ENUM::AFS_SEL_4g:
+			accelScalingFactor = (4000.0f/32768.0f);
+				break;
+		
+		case accel_FullScale_ENUM::AFS_SEL_8g:
+			accelScalingFactor = (8000.0f/32768.0f);
+			break;
+		
+		case accel_FullScale_ENUM::AFS_SEL_16g:
+			accelScalingFactor = (16000.0f/32768.0f);
+			break;
+		
+		default:
+			break;
+	}
+	//Gyroscope Scaling Factor 
+	    switch (config.Gyro_Full_Scale)
+	    {
+	    	case gyro_FullScale_ENUM::FS_SEL_250:
+	    		gyroScalingFactor = 250.0f/32768.0f;
+	    		break;
+    
+	    	case gyro_FullScale_ENUM::FS_SEL_500:
+	    			gyroScalingFactor = 500.0f/32768.0f;
+	    			break;
+    
+	    	case gyro_FullScale_ENUM::FS_SEL_1000:
+	    		gyroScalingFactor = 1000.0f/32768.0f;
+	    		break;
+    
+	    	case gyro_FullScale_ENUM::FS_SEL_2000:
+	    		gyroScalingFactor = 2000.0f/32768.0f;
+	    		break;
+    
+	    	default:
+	    		break;
+	    }
+
+    }
+    //6- Set Sample Rate Divider
+    void MPU6050::MPU6050_Set_SMPRT_DIV(uint8_t SMPRTvalue)
+    {
+    	I2C_Write8(this->i2c_id, SMPLRT_DIV_REG, SMPRTvalue);
     }
 
     MPU6050::MPU6050(int i2c_id)
     {
         this->i2c_id = wiringPiI2CSetup(i2c_id);
     }
-
-
 }

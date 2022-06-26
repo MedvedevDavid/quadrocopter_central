@@ -21,7 +21,12 @@ TEST(TC_I2C_Driver, testcases)
 
     MPU6050 mpu6050(MPU_6050_ADDR);
     mpu6050.config(mpu_configuration);
-    ASSERT_THAT(i2c_buffer, testing::ElementsAre(MPU_6050_ADDR, PWR_MAGT_1_REG, 0x80, MPU_6050_ADDR, PWR_MAGT_1_REG, 
-    0x00, MPU_6050_ADDR, CONFIG_REG, 0x01));
+    ASSERT_THAT(i2c_buffer, testing::ElementsAre(MPU_6050_ADDR, PWR_MAGT_1_REG, 0x80, 
+    MPU_6050_ADDR, PWR_MAGT_1_REG, 0x00, 
+    MPU_6050_ADDR, CONFIG_REG, 0x01, 
+    MPU_6050_ADDR, GYRO_CONFIG_REG, 0x08, 
+    MPU_6050_ADDR, ACCEL_CONFIG_REG, 0x08,
+    MPU_6050_ADDR, SMPLRT_DIV_REG, 0x04,
+    MPU_6050_ADDR, INT_ENABLE_REG, 0x01));
 
 };

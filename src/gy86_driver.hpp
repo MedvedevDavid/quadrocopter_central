@@ -70,6 +70,9 @@ namespace GY_86
     {
         private:
             int i2c_id;
+            void MPU6050_Set_SMPRT_DIV(uint8_t);
+            float accelScalingFactor;
+            float gyroScalingFactor;
         public: 
             MPU6050(int);
             void config(MPU_ConfigTypeDef &config);
