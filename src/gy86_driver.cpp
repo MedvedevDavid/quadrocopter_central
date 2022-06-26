@@ -10,7 +10,7 @@ namespace GY_86
     using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
     using std::chrono::system_clock;
 
-    void MPU6050::config(MPU_ConfigTypeDef &config)
+    void MPU6050_User::config(MPU_ConfigTypeDef &config)
     {
         I2C_Write8(this->i2c_id, PWR_MAGT_1_REG, 0x80);
         sleep_for(100ms);
@@ -90,12 +90,12 @@ namespace GY_86
 
     }
     //6- Set Sample Rate Divider
-    void MPU6050::MPU6050_Set_SMPRT_DIV(uint8_t SMPRTvalue)
+    void MPU6050_User::MPU6050_Set_SMPRT_DIV(uint8_t SMPRTvalue)
     {
     	I2C_Write8(this->i2c_id, SMPLRT_DIV_REG, SMPRTvalue);
     }
 
-    MPU6050::MPU6050(int i2c_id)
+    GY86_User::GY86_User(int i2c_id)
     {
         this->i2c_id = wiringPiI2CSetup(i2c_id);
     }

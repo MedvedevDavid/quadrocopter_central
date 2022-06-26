@@ -10,7 +10,7 @@ TEST(TC_I2C_Driver, testcases)
 {
     MPU_ConfigTypeDef mpu_configuration;
 
-    //2.Configure accelerometer and GYRO parameters
+    //Configure accelerometer and GYRO parameters
     mpu_configuration.Accel_Full_Scale = accel_FullScale_ENUM::AFS_SEL_4g;
     mpu_configuration.ClockSource = PM_CLKSEL_ENUM::Internal_8MHz;
     mpu_configuration.CONFIG_DLPF = DLPF_CFG_ENUM::DLPF_184A_188G_Hz;
@@ -19,7 +19,7 @@ TEST(TC_I2C_Driver, testcases)
     mpu_configuration.INTA_ENABLED = 1;
     mpu_configuration.Sample_Rate_Devider = 4;
 
-    MPU6050 mpu6050(MPU_6050_ADDR);
+    MPU6050_User mpu6050(MPU_6050_ADDR);
     mpu6050.config(mpu_configuration);
     ASSERT_THAT(i2c_buffer, testing::ElementsAre(MPU_6050_ADDR, PWR_MAGT_1_REG, 0x80, 
     MPU_6050_ADDR, PWR_MAGT_1_REG, 0x00, 
