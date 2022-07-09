@@ -66,6 +66,23 @@ namespace GY_86
         uint8_t Sample_Rate_Devider;
     } MPU_ConfigTypeDef;
 
+
+    //7. Raw data typedef
+    typedef struct
+    {
+    	int16_t x;
+    	int16_t y;
+    	int16_t z;
+    }RawData_Def;
+
+    //8. Scaled data typedef
+    typedef struct
+    {
+    	float x;
+    	float y;
+    	float z;
+    }ScaledData_Def;
+
     class GY86_User
     {
         protected:
@@ -85,6 +102,10 @@ namespace GY_86
         public:
             using GY86_User::GY86_User;
             void config(MPU_ConfigTypeDef &config);
+            void MPU6050_Get_Accel_RawData(RawData_Def *rawDef);
+            void MPU6050_Get_Gyro_RawData(RawData_Def *rawDef);
+            void MPU6050_Get_Accel_Scale(ScaledData_Def *scaledDef);
+            void MPU6050_Get_Gyro_Scale(ScaledData_Def *scaledDef);
     };
 
 }

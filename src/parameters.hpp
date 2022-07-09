@@ -10,6 +10,8 @@ constexpr int GYRO_CONFIG_REG   = 0x1B;
 constexpr int ACCEL_CONFIG_REG  = 0x1C;
 constexpr int SMPLRT_DIV_REG    = 0x19;
 constexpr int INT_ENABLE_REG    = 0x38;
-
+constexpr int INT_STATUS_REG    = 0x3A;
+constexpr int ACCEL_XOUT_H_REG	= 0x3B;
+constexpr int GYRO_XOUT_H_REG   = 0x43;
 
 #endif

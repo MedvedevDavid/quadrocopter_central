@@ -10,6 +10,7 @@ namespace GY_86
     using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
     using std::chrono::system_clock;
 
+
     void MPU6050_User::config(MPU_ConfigTypeDef &config)
     {
         I2C_Write8(this->i2c_id, PWR_MAGT_1_REG, 0x80);
@@ -94,6 +95,65 @@ namespace GY_86
     {
     	I2C_Write8(this->i2c_id, SMPLRT_DIV_REG, SMPRTvalue);
     }
+
+	static int16_t GyroRW[3];
+	//9- Get Accel Raw Data
+	void MPU6050_User::MPU6050_Get_Accel_RawData(RawData_Def *rawDef)
+	{
+		uint8_t i2cBuf[2];
+		uint8_t AcceArr[6], GyroArr[6];
+
+		I2C_Read(INT_STATUS_REG, &i2cBuf[1],1);
+		if((i2cBuf[1]&&0x01))
+		{
+			I2C_Read(ACCEL_XOUT_H_REG, AcceArr,6);
+
+			//Accel Raw Data
+			rawDef->x = ((AcceArr[0]<<8) + AcceArr[1]); // x-Axis
+			rawDef->y = ((AcceArr[2]<<8) + AcceArr[3]); // y-Axis
+			rawDef->z = ((AcceArr[4]<<8) + AcceArr[5]); // z-Axis
+			//Gyro Raw Data
+			I2C_Read(GYRO_XOUT_H_REG, GyroArr,6);
+			GyroRW[0] = ((GyroArr[0]<<8) + GyroArr[1]);
+			GyroRW[1] = (GyroArr[2]<<8) + GyroArr[3];
+			GyroRW[2] = ((GyroArr[4]<<8) + GyroArr[5]);
+		}
+	}
+	//10- Get Accel scaled data (g unit of gravity, 1g = 9.81m/s2)
+	void MPU6050_User::MPU6050_Get_Accel_Scale(ScaledData_Def *scaledDef)
+	{
+
+		RawData_Def AccelRData;
+		MPU6050_Get_Accel_RawData(&AccelRData);
+
+		//Accel Scale data 
+		scaledDef->x = ((AccelRData.x+0.0f)*accelScalingFactor);
+		scaledDef->y = ((AccelRData.y+0.0f)*accelScalingFactor);
+		scaledDef->z = ((AccelRData.z+0.0f)*accelScalingFactor);
+	}
+
+	//12- Get Gyro Raw Data
+	void MPU6050_User::MPU6050_Get_Gyro_RawData(RawData_Def *rawDef)
+	{
+
+		//Accel Raw Data
+		rawDef->x = GyroRW[0];
+		rawDef->y = GyroRW[1];
+		rawDef->z = GyroRW[2];
+
+	}
+
+	//13- Get Gyro scaled data
+	void MPU6050_User::MPU6050_Get_Gyro_Scale(ScaledData_Def *scaledDef)
+	{
+		RawData_Def myGyroRaw;
+		MPU6050_Get_Gyro_RawData(&myGyroRaw);
+
+		//Gyro Scale data 
+		scaledDef->x = (myGyroRaw.x)*gyroScalingFactor; // x-Axis
+		scaledDef->y = (myGyroRaw.y)*gyroScalingFactor; // y-Axis
+		scaledDef->z = (myGyroRaw.z)*gyroScalingFactor; // z-Axis
+	}
 
     GY86_User::GY86_User(int i2c_id)
     {

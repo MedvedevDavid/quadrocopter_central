@@ -1,3 +1,14 @@
+cmake_minimum_required(VERSION 3.10)
+project(Quadrocopter_Central_test)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(src)
+
+add_subdirectory(lib/googletest)
+add_subdirectory(src)
+
+
 set(BINARY ${CMAKE_PROJECT_NAME}_tst)
 
 file(GLOB TEST_SOURCES
