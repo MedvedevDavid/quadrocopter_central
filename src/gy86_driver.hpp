@@ -1,6 +1,7 @@
 #ifndef GY86_DRIVER_HPP
 #define GY86_DRIVER_HPP
 #include <stdint.h>
+#include "i2c_adapter.hpp"
 
 namespace GY_86
 {
@@ -87,7 +88,7 @@ namespace GY_86
     {
         protected:
             int i2c_id;
-
+            I2C_driver *MPU_6050;
         public:
             GY86_User(int);
     };
@@ -98,6 +99,7 @@ namespace GY_86
             void MPU6050_Set_SMPRT_DIV(uint8_t);
             float accelScalingFactor;
             float gyroScalingFactor;
+            
 
         public:
             using GY86_User::GY86_User;
