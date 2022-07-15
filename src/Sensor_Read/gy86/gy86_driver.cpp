@@ -1,6 +1,5 @@
 #include "gy86_driver.hpp"
 #include "i2c_adapter.hpp"
-#include "parameters.hpp"
 #include <chrono>
 #include <thread>
 
@@ -9,7 +8,6 @@ namespace GY_86
     using namespace std::this_thread;     // sleep_for, sleep_until
     using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
     using std::chrono::system_clock;
-
 
     void MPU6050_User::config(MPU_ConfigTypeDef &config)
     {

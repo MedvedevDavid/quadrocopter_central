@@ -3,18 +3,20 @@
 #include "parameters.hpp"
 #include <iostream>
 #include <unistd.h>
-extern "C" {
 #include <wiringPi.h>
-}
+
 using namespace GY_86;
 
-void switchInterrupt(void);	// Function prototype
+void MPUDataInterrupt();	// Function prototype
 
 MPU6050_User *mpu6050;
 int main()
 {
-    wiringPiSetup();
-    pinMode(19, INPUT);
+    if(wiringPiSetup()<0)
+    {
+        std::cout << "Init Failed" << std::endl;
+    }
+    pinMode(24, INPUT);
 
     MPU_ConfigTypeDef mpu_configuration;
 
@@ -27,22 +29,27 @@ int main()
     mpu_configuration.INTA_ENABLED = 1;
     mpu_configuration.Sample_Rate_Devider = 4;
 
-    mpu6050 = new MPU6050_User(MPU_6050_ADDR);
+    mpu6050 = new MPU6050_User();
     mpu6050->config(mpu_configuration);
 
     // Cause an interrupt when data recieved
-    wiringPiISR (19, INT_EDGE_RISING, switchInterrupt) ;
+     
+    if(wiringPiISR (24, INT_EDGE_RISING, &MPUDataInterrupt)<0)
+    {
+        std::cout << "ISR Failed" << std::endl;
+    }
 
     while(1)
     {
-        sleep(1);
+        	
+
+        sleep(0.5);
     }
 }
 
 // Our interrupt routine
-void switchInterrupt(void)
+void MPUDataInterrupt()
 {
-	std::cout << "Button pressed" << std::endl;
     ScaledData_Def scaledDef;
     mpu6050->MPU6050_Get_Accel_Scale(&scaledDef);
     std::cout << scaledDef.x << std::endl;

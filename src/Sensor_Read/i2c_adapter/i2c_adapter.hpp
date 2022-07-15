@@ -8,7 +8,7 @@ class I2C_driver{
         int adapter_nr = 2;
         char filename[20];
         int addr = 0x5a;          //<<<<<The I2C address of the slave
-        int buffer[60];
+        uint8_t buffer[60];
         int length;
 
     public:

@@ -2,7 +2,7 @@
 #include "gy86_driver.hpp"
 #include "i2c_adapter.hpp"
 #include "gmock/gmock.h"
-#include "parameters.hpp"
+#include "gy86_parameters.hpp"
 using namespace GY_86;
 
 
@@ -19,7 +19,7 @@ TEST(TC_I2C_Driver, testcases)
     mpu_configuration.INTA_ENABLED = 1;
     mpu_configuration.Sample_Rate_Devider = 4;
 
-    MPU6050_User mpu6050(MPU_6050_ADDR);
+    MPU6050_User mpu6050();
     mpu6050.config(mpu_configuration);
     ASSERT_THAT(i2c_buffer, testing::ElementsAre(MPU_6050_ADDR, PWR_MAGT_1_REG, 0x80, 
     MPU_6050_ADDR, PWR_MAGT_1_REG, 0x00, 

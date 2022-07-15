@@ -2,6 +2,7 @@
 #define GY86_DRIVER_HPP
 #include <stdint.h>
 #include "i2c_adapter.hpp"
+#include "gy86_parameters.hpp"
 
 namespace GY_86
 {
@@ -102,7 +103,7 @@ namespace GY_86
             
 
         public:
-            using GY86_User::GY86_User;
+            MPU6050_User():GY86_User(MPU_6050_ADDR){};
             void config(MPU_ConfigTypeDef &config);
             void MPU6050_Get_Accel_RawData(RawData_Def *rawDef);
             void MPU6050_Get_Gyro_RawData(RawData_Def *rawDef);
