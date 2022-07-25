@@ -7,6 +7,8 @@ target_link_libraries(
     ${BINARY}_run wiringPi
     i2c_adapter
     gy86
+    sensor_master
+    Kalman
 )
 add_definitions(-std=c++0x -lwiringPi -lpthread)
 

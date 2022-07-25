@@ -1,10 +1,10 @@
-set(COMPONENT_NAME i2c_adapter)
+set(COMPONENT_NAME Kalman)
 add_library(${COMPONENT_NAME})
 
 target_sources(
     ${COMPONENT_NAME}
     PRIVATE
-        i2c_adapter.cpp
+        Kalman.cpp
 )
 target_include_directories(
     ${COMPONENT_NAME}
