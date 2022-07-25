@@ -78,6 +78,7 @@ constexpr int HMC5883L_STATUS_READY_BIT   = 0;
 
 
 constexpr double PI = 3.14159;
+constexpr float RAD_TO_DEG = 57.295779513082320876798154814105f; 
 
 
 

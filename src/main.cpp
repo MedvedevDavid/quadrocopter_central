@@ -36,4 +36,5 @@ int main()
 void MPUDataInterrupt()
 {
     GyData->MPU_get_data();
+    GyData->magnetometer_sensor_data_processing();
 }

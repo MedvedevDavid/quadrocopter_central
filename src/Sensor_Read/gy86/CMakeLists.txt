@@ -11,6 +11,8 @@ target_sources(
     ${COMPONENT_NAME}
     PRIVATE
         gy86_driver.cpp
+        mpu_6050.cpp
+        hmc_5883l.cpp
 )
 target_include_directories(
     ${COMPONENT_NAME}
