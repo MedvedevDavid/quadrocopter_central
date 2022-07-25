@@ -6,7 +6,7 @@
 
 namespace GY_86
 {
-    // 2- Clock Source ENUM
+    // Clock Source ENUM
     enum class PM_CLKSEL_ENUM
     {
         Internal_8MHz = 0x00,
@@ -17,7 +17,7 @@ namespace GY_86
         Ext_19_2MHz = 0x05,
         TIM_GENT_INREST = 0x07
     };
-    // 3- Gyro Full Scale Range ENUM (deg/sec)
+    // Gyro Full Scale Range ENUM (deg/sec)
     enum class gyro_FullScale_ENUM
     {
         FS_SEL_250 = 0x00,
@@ -25,7 +25,7 @@ namespace GY_86
         FS_SEL_1000 = 0x02,
         FS_SEL_2000 = 0x03
     };
-    // 4- Accelerometer Full Scale Range ENUM (1g = 9.81m/s2)
+    // Accelerometer Full Scale Range ENUM (1g = 9.81m/s2)
     enum class accel_FullScale_ENUM
     {
         AFS_SEL_2g = 0x00,
@@ -33,7 +33,7 @@ namespace GY_86
         AFS_SEL_8g,
         AFS_SEL_16g
     };
-    // 5- Digital Low Pass Filter ENUM
+    // Digital Low Pass Filter ENUM
     enum class DLPF_CFG_ENUM
     {
         DLPF_260A_256G_Hz = 0x00,
@@ -44,7 +44,7 @@ namespace GY_86
         DLPF_10_Hz = 0x05,
         DLPF_5_Hz = 0x06
     };
-    // 6- e external Frame Synchronization ENUM
+    // External Frame Synchronization ENUM
     enum class EXT_SYNC_SET_ENUM
     {
         input_Disable = 0x00,
@@ -69,7 +69,7 @@ namespace GY_86
     } MPU_ConfigTypeDef;
 
 
-    //7. Raw data typedef
+    // Raw data typedef
     typedef struct
     {
     	int16_t x;
@@ -77,7 +77,7 @@ namespace GY_86
     	int16_t z;
     }RawData_Def;
 
-    //8. Scaled data typedef
+    //Scaled data typedef
     typedef struct
     {
     	float x;
@@ -89,7 +89,7 @@ namespace GY_86
     {
         protected:
             int i2c_id;
-            I2C_driver *MPU_6050;
+            I2C_driver *I2C_Port;
         public:
             GY86_User(int);
     };

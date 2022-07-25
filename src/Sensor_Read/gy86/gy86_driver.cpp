@@ -11,33 +11,33 @@ namespace GY_86
 
     void MPU6050_User::config(MPU_ConfigTypeDef &config)
     {
-       	MPU_6050->I2C_Write8(PWR_MAGT_1_REG, 0x80);
+       	I2C_Port->I2C_Write8(PWR_MAGT_1_REG, 0x80);
         sleep_for(100ms);
         uint8_t Buffer = (int)config.ClockSource & 0x07; //change the 7th bits of register
         Buffer |= ((int)config.Sleep_Mode_Bit << 6) &0x40; // change only the 7th bit in the register
-        MPU_6050->I2C_Write8(PWR_MAGT_1_REG, Buffer);
+        I2C_Port->I2C_Write8(PWR_MAGT_1_REG, Buffer);
         sleep_for(100ms); // should wait 10ms after changeing the clock setting.
 
         //Set the Digital Low Pass Filter
         Buffer = 0;
         Buffer = (int) config.CONFIG_DLPF & 0x07;
-        MPU_6050->I2C_Write8(CONFIG_REG, Buffer);
+        I2C_Port->I2C_Write8(CONFIG_REG, Buffer);
 
         //Select the Gyroscope Full Scale Range
 	    Buffer = 0;
 	    Buffer = ((int)config.Gyro_Full_Scale << 3) & 0x18;
-	    MPU_6050->I2C_Write8(GYRO_CONFIG_REG, Buffer);
+	    I2C_Port->I2C_Write8(GYRO_CONFIG_REG, Buffer);
 
         //Select the Accelerometer Full Scale Range 
 	    Buffer = 0; 
 	    Buffer = ((int)config.Accel_Full_Scale << 3) & 0x18;
-	    MPU_6050->I2C_Write8(ACCEL_CONFIG_REG, Buffer);
+	    I2C_Port->I2C_Write8(ACCEL_CONFIG_REG, Buffer);
 
         MPU6050_Set_SMPRT_DIV(config.Sample_Rate_Devider);
 
 	if (config.INTA_ENABLED)
 	{
-		MPU_6050->I2C_Write8(INT_ENABLE_REG, 0x1);
+		I2C_Port->I2C_Write8(INT_ENABLE_REG, 0x1);
 	}
 	
 
@@ -91,7 +91,7 @@ namespace GY_86
     //6- Set Sample Rate Divider
     void MPU6050_User::MPU6050_Set_SMPRT_DIV(uint8_t SMPRTvalue)
     {
-    	MPU_6050->I2C_Write8(SMPLRT_DIV_REG, SMPRTvalue);
+    	I2C_Port->I2C_Write8(SMPLRT_DIV_REG, SMPRTvalue);
     }
 
 	static int16_t GyroRW[3];
@@ -101,17 +101,17 @@ namespace GY_86
 		uint8_t i2cBuf[2];
 		uint8_t AcceArr[6], GyroArr[6];
 
-		MPU_6050->I2C_Read(INT_STATUS_REG, &i2cBuf[1],1);
+		I2C_Port->I2C_Read(INT_STATUS_REG, &i2cBuf[1],1);
 		if((i2cBuf[1]&&0x01))
 		{
-			MPU_6050->I2C_Read(ACCEL_XOUT_H_REG, AcceArr,6);
+			I2C_Port->I2C_Read(ACCEL_XOUT_H_REG, AcceArr,6);
 
 			//Accel Raw Data
 			rawDef->x = ((AcceArr[0]<<8) + AcceArr[1]); // x-Axis
 			rawDef->y = ((AcceArr[2]<<8) + AcceArr[3]); // y-Axis
 			rawDef->z = ((AcceArr[4]<<8) + AcceArr[5]); // z-Axis
 			//Gyro Raw Data
-			MPU_6050->I2C_Read(GYRO_XOUT_H_REG, GyroArr,6);
+			I2C_Port->I2C_Read(GYRO_XOUT_H_REG, GyroArr,6);
 			GyroRW[0] = ((GyroArr[0]<<8) + GyroArr[1]);
 			GyroRW[1] = (GyroArr[2]<<8) + GyroArr[3];
 			GyroRW[2] = ((GyroArr[4]<<8) + GyroArr[5]);
@@ -155,7 +155,7 @@ namespace GY_86
 
     GY86_User::GY86_User(int i2c_id)
     {
-		MPU_6050 = new I2C_driver(i2c_id);
+		I2C_Port = new I2C_driver(i2c_id);
 
     }
 }
