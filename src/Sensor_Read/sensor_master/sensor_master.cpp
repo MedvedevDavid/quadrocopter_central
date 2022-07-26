@@ -44,8 +44,8 @@ void Sensor_Data::MPU_get_data()
 
     float filtered_anggle_x = kalman_x.getAngle(scaledAccel.x_angle,scaledGyro.x,dt_in_sec);
     float filtered_anggle_y = kalman_y.getAngle(scaledAccel.y_angle,scaledGyro.y,dt_in_sec);
-    std::cout << scaledAccel.x_angle << "   " << scaledGyro.x << "   "<< dt_in_sec << "   " << filtered_anggle_x << std::endl;
-    std::cout << filtered_anggle_y << std::endl;
+    //std::cout << scaledAccel.x_angle << "   " << scaledGyro.x << "   "<< dt_in_sec << "   " << filtered_anggle_x << std::endl;
+    //std::cout << filtered_anggle_y << std::endl;
 
 }
 
@@ -68,6 +68,6 @@ void Sensor_Data::magnetometer_sensor_data_processing()
     float My = magnetometer_data.x * sin(x_angle) * sin(y_angle) + magnetometer_data.y * cos(x_angle) - magnetometer_data.z * sin(x_angle) * cos(y_angle);
     magneto_yaw = atan2(-My,Mx)*RAD_TO_DEG;
     //magneto_yaw = atan2(y,x)*RAD_TO_DEG;
-    std::cout << "Magneto: " << magneto_yaw << std::endl;
+    //std::cout << "Magneto: " << magneto_yaw << std::endl;
 }
 }
