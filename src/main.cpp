@@ -6,11 +6,37 @@
 #include "UART_read.hpp"
 #include "controll_master.hpp"
 
+//PWM
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+FILE *fp;
+
 using namespace sensormaster;
 void MPUDataInterrupt();	// Function prototype
 Sensor_Data *GyData;
+
+//https://github.com/sarfata/pi-blaster
+//https://ozzmaker.com/software-pwm-on-a-raspberry-pi/
+void signal_callback_handler(int signum) {
+    fprintf(fp, "%i=%f\n", 4,0.0);
+    fflush(fp);
+    fprintf(fp, "%i=%f\n", 17,0.0);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 18,0.0);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 22,0.0);
+    fflush(fp); 
+    std::cout << "Session cloosed" << std::endl;
+   // Terminate program
+   exit(0);
+}
+
 int main()
 {
+try{
+    signal(SIGINT, signal_callback_handler);
     if(wiringPiSetup()<0)
     {
         std::cout << "Init Failed" << std::endl;
@@ -25,6 +51,24 @@ int main()
     {
         std::cout << "ISR Failed" << std::endl;
     }
+
+
+
+    fp = fopen("/dev/pi-blaster", "w");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        exit(0);
+     }
+
+    
+    fprintf(fp, "%i=%f\n", 4,0.1);
+    fflush(fp);
+    fprintf(fp, "%i=%f\n", 17,0.1);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 18,0.1);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 22,0.1);
+    fflush(fp); 
 
     UART_receiver UART_controll_master;
     ControllMessageManeger UART_data_decoder;
@@ -41,6 +85,19 @@ int main()
 
         sleep(0.5);
     }
+}
+catch(...)
+{
+    fprintf(fp, "%i=%f\n", 4,0.0);
+    fflush(fp);
+    fprintf(fp, "%i=%f\n", 17,0.0);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 18,0.0);
+    fflush(fp); 
+    fprintf(fp, "%i=%f\n", 22,0.0);
+    fflush(fp); 
+    std::cout << "Session cloosed" << std::endl;
+}
 }
 
 // Our interrupt routine
