@@ -7,6 +7,7 @@ Run:
 
 Wiring pi:
 sudo apt-get install git-core
+git clone https://github.com/WiringPi/WiringPi.git
 cd WiringPi
 ./build
 
@@ -22,3 +23,4 @@ sudo raspi-config
 
 https://github.com/sarfata/pi-blaster
 https://ozzmaker.com/software-pwm-on-a-raspberry-pi/
+RPI 0 Need to be added.
