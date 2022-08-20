@@ -12,6 +12,8 @@ target_sources(
     PRIVATE
         UART_read.cpp
         controll_master.cpp
+        motor_controller.cpp
+        PID.cpp
 )
 target_include_directories(
     ${COMPONENT_NAME}

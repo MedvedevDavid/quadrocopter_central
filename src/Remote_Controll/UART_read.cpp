@@ -79,6 +79,10 @@ UART_data UART_receiver::get_data()
 		ret_val.rx_buffer = rx_buffer;
 		ret_val.data_length = cycle_count;
 	}
+	else
+	{
+		std::cout << "Error - Unable to open UART.\n";
+	}
 	return (ret_val);
 }
 UART_receiver::~UART_receiver()
