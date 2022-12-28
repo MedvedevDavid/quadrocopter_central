@@ -1,0 +1,5 @@
+[requires]
+wiringpi/cci.20210727
+
+[generators]
+cmake

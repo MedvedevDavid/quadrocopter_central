@@ -27,25 +27,25 @@ Sensor_Data *GyData;
 
 int main()
 {
-    if(wiringPiSetup()<0)
-    {
-        std::cout << "Init Failed" << std::endl;
-    }
-    pinMode(24, INPUT);
+//     if(wiringPiSetup()<0)
+//     {
+//         std::cout << "Init Failed" << std::endl;
+//     }
+//     pinMode(24, INPUT);
 
-   GyData = new Sensor_Data();
+//    GyData = new Sensor_Data();
 
-    // Cause an interrupt when data recieved
-    if(wiringPiISR (24, INT_EDGE_RISING, &MPUDataInterrupt)<0)
-    {
-        std::cout << "ISR Failed" << std::endl;
-    }
-    std::thread thread_object(RemoteControllerRead);
+//     // Cause an interrupt when data recieved
+//     if(wiringPiISR (24, INT_EDGE_RISING, &MPUDataInterrupt)<0)
+//     {
+//         std::cout << "ISR Failed" << std::endl;
+//     }
+//     std::thread thread_object(RemoteControllerRead);
 
 
     while(1)
     {
-
+        std::cout << "I am here" << std::endl;
     }
 }
 
