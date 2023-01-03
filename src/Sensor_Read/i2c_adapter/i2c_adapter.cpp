@@ -41,8 +41,6 @@ void I2C_driver::I2C_Write8(int id, int message)
 		/* ERROR HANDLING: i2c transaction failed */
 		std::cout <<"Failed to write to the i2c bus.\n";
 	}
-	std::cout <<"Succeed to write to the i2c bus.\n";
-
 }
 
 void I2C_driver::I2C_Read(uint8_t ADDR, uint8_t *i2c_read_buff, uint8_t NofData)

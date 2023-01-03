@@ -44,8 +44,8 @@ void Sensor_Data::MPU_get_data()
 
     float filtered_anggle_x = kalman_x.getAngle(scaledAccel.x_angle,scaledGyro.x,dt_in_sec);
     float filtered_anggle_y = kalman_y.getAngle(scaledAccel.y_angle,scaledGyro.y,dt_in_sec);
-    //std::cout << scaledAccel.x_angle << "   " << scaledGyro.x << "   "<< dt_in_sec << "   " << filtered_anggle_x << std::endl;
-    //std::cout << filtered_anggle_y << std::endl;
+    std::cout << scaledAccel.x_angle << "   " << scaledGyro.x << "   "<< dt_in_sec << "   " << filtered_anggle_x << std::endl;
+    std::cout << filtered_anggle_y << std::endl;
 
 }
 
