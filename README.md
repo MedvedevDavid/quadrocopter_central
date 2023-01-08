@@ -44,3 +44,6 @@ EOF
 
 source set_env.sh 
 source ~/.profile
+
+
+Debugg: gdb-multiarch ./Quadrocopter_Central_run
