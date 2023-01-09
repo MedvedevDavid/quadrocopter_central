@@ -3,6 +3,7 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <iostream>
 
 namespace GY_86
 {
@@ -124,7 +125,6 @@ namespace GY_86
 
 		RawData_Def AccelRData;
 		MPU6050_Get_Accel_RawData(&AccelRData);
-
 		//Accel Scale data 
 		scaledDef->x = ((AccelRData.x+0.0f)*accelScalingFactor);
 		scaledDef->y = ((AccelRData.y+0.0f)*accelScalingFactor);
@@ -147,7 +147,6 @@ namespace GY_86
 	{
 		RawData_Def myGyroRaw;
 		MPU6050_Get_Gyro_RawData(&myGyroRaw);
-
 		//Gyro Scale data 
 		scaledDef->x = (myGyroRaw.x)*gyroScalingFactor; // x-Axis
 		scaledDef->y = (myGyroRaw.y)*gyroScalingFactor; // y-Axis
@@ -157,6 +156,13 @@ namespace GY_86
     {
         MPU6050_Get_Accel_Scale(my_accel_scaled);
         this->my_accel_scaled = *my_accel_scaled;
+		std::cout << "RES1 " << my_accel_scaled->x << "\n";
+		std::cout << "RES2 " << my_accel_scaled->y << "\n";
+		std::cout << "RES3 " << my_accel_scaled->z << "\n";
+
+		std::cout << "thisRES1 " << this-> my_accel_scaled.x << "\n";
+		std::cout << "thisRES2 " << this-> my_accel_scaled.y << "\n";
+		std::cout << "thisRES3 " << this-> my_accel_scaled.z << "\n";
     }
 
 	void MPU6050_User::Get_Gyro_Scale(ScaledData_Def *my_gyro_scaled)
@@ -174,7 +180,6 @@ namespace GY_86
         x_val= my_accel_scaled.x;
         y_val= my_accel_scaled.y;
         z_val= my_accel_scaled.z;
-
         // Work out the squares
         x2 = (double)(x_val*x_val);
         y2 = (double)(y_val*y_val);
@@ -191,6 +196,8 @@ namespace GY_86
         accel_angle_y = atan(result);
         ret_Val.x_angle=accel_angle_x*180/PI;
         ret_Val.y_angle=accel_angle_y*180/PI;
+
+    	std::cout << "XSA " << ret_Val.x_angle << "\n";
 
         return(ret_Val);
     }
