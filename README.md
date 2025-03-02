@@ -3,9 +3,11 @@
 
 Quadrocopter central is a quadrocopter project for a raspberry pi.
  
-To Setup:
+# Compilation and run
+The compilation is in the top level make file
 
-# Run:
+# To Setup:
+
 "sudo apt-get install build-essential cmake" 
 
 # Wiring pi:
@@ -50,3 +52,4 @@ source ~/.profile
 
 
 Debugg: gdb-multiarch ./Quadrocopter_Central_run
+
