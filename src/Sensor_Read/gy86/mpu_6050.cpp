@@ -155,14 +155,12 @@ namespace GY_86
 	void MPU6050_User::Get_Accel_Scale(ScaledData_Def *my_accel_scaled)
     {
         MPU6050_Get_Accel_Scale(my_accel_scaled);
-        this->my_accel_scaled = *my_accel_scaled;
-		std::cout << "RES1 " << my_accel_scaled->x << "\n";
-		std::cout << "RES2 " << my_accel_scaled->y << "\n";
-		std::cout << "RES3 " << my_accel_scaled->z << "\n";
-
-		std::cout << "thisRES1 " << this-> my_accel_scaled.x << "\n";
-		std::cout << "thisRES2 " << this-> my_accel_scaled.y << "\n";
-		std::cout << "thisRES3 " << this-> my_accel_scaled.z << "\n";
+		// check for if all the values are numbers
+		if ((my_accel_scaled->x = my_accel_scaled->x) and (my_accel_scaled->y = my_accel_scaled->y) and (my_accel_scaled->z = my_accel_scaled->z))
+		{
+			this->my_accel_scaled = *my_accel_scaled;
+		}
+        
     }
 
 	void MPU6050_User::Get_Gyro_Scale(ScaledData_Def *my_gyro_scaled)
@@ -196,8 +194,6 @@ namespace GY_86
         accel_angle_y = atan(result);
         ret_Val.x_angle=accel_angle_x*180/PI;
         ret_Val.y_angle=accel_angle_y*180/PI;
-
-    	std::cout << "XSA " << ret_Val.x_angle << "\n";
 
         return(ret_Val);
     }

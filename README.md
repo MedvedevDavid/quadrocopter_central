@@ -1,11 +1,14 @@
 # quadrocopter_central
 
+
+Quadrocopter central is a quadrocopter project for a raspberry pi.
+ 
 To Setup:
 
-Run:
+# Run:
 "sudo apt-get install build-essential cmake" 
 
-Wiring pi:
+# Wiring pi:
 sudo apt-get install git-core
 git clone https://github.com/WiringPi/WiringPi.git
 cd WiringPi
@@ -26,7 +29,7 @@ https://ozzmaker.com/software-pwm-on-a-raspberry-pi/
 RPI 0 Need to be added.
 
 
-Conan:
+# Conan:
 conan create ../conanfile.py --profile=../ubuntu_to_rpi --build=wiringpi --build=QuadrocopterCore
 
 

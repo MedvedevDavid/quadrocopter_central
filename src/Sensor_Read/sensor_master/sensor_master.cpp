@@ -51,6 +51,7 @@ void Sensor_Data::MPU_get_data()
     std::cout << "SAcY " << scaledAccel.y_angle << "\n";
     std::cout << "XFA " << filtered_anggle_x << "\n";
     std::cout << "YFA " << filtered_anggle_y << "\n";
+    std::cout << "dt_in_sec " << dt_in_sec << "\n";
 
 }
 
